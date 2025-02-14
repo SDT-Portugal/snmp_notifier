@@ -158,6 +158,9 @@ func (trapSender TrapSender) generateVarBinds(alertGroup types.AlertGroup) (snmp
 	)
 
 	trapUniqueID := strings.Join([]string{alertGroup.OID, "[", alertGroup.GroupID, "]"}, "")
+	if len(alertGroup.CommonAnnotations) > 0 {
+		trapUniqueID = alertGroup.CommonAnnotations["description"]
+	}
 
 	description, err := commons.FillTemplate(alertGroup, trapSender.configuration.DescriptionTemplate)
 	if err != nil {
