@@ -1,0 +1,14 @@
+[Unit]
+Description=SNMP Notifier
+Documentation=https://github.com/SDT-Portugal/snmp_notifier
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=-/etc/default/snmp_notifier
+User=snmp_notifier
+ExecStart=/usr/bin/snmp_notifier --snmp.trap-description-template=/etc/snmp_notifier/description-template.tpl --snmp.destination=<DESTINATION_IP>:162
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
